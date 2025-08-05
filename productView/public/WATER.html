@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- ///////////TITTLE -->
+		<title>Water Odessey Catalog template</title>
+		
+		<!-- /////////// META -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<meta name="description" content="3d model for water odessey" />
+		<meta name="keywords" content="three.js, water, template, 3d model, blender, javascript" />
+		<meta name="author" content="wasiac" />
+
+		<!-- /////////// LINKS -->
+		<link type="text/css" rel="stylesheet" href="main.css">
+		<link rel="shortcut icon" href="favicon.ico">
+		<link rel="stylesheet" type="text/css" href="./css/style.css" />
+		<link href="https://fonts.googleapis.com/css?family=Raleway:500,700&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		<link rel=stylesheet href="/water/css/jquery-ui.css" />
+		<link rel=stylesheet href="/water/css/info.css" />
+		
+		<link rel="stylesheet" type="text/css" href="/water/css/style.css" />
+		<link rel="stylesheet" type="text/css" href="/water/css/style.css" />
+		<link rel="stylesheet" type="text/css" href="/water/css/style_pop.css" />
+		<link rel="stylesheet" type="text/css" href="/water/css/style_pop_show.css" />   
+		<link rel="stylesheet" type="text/css" href="css/Rsidenav.css" />
+		<link rel="stylesheet" type="text/css" href="css/loading_main.css" />
+    
+    
+		<!-- <script src="js/Stats.js"></script> -->
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/canvg/3.0.10/umd.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/canvg/3.0.10/umd.min.js" ></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>    
+
+		<script src="https://code.jquery.com/jquery-3.7.1.slim.js" integrity="sha256-UgvvN8vBkgO0luPSUl2s8TIlOSYRoGFAX4jlCIm9Adc=" crossorigin="anonymous"></script>
+
+  <script src="js/jquery-1.9.1.js"></script>
+  <!-- <script src="js/jquery-1.10.2.min.js"></script> -->
+  <script src="js/jquery-ui.js"></script>  
+  <!-- <script src="js/info.js"></script>    
+  <script type='text/javascript' src='js/DAT.GUI.min.js'></script>    -->
+    
+
+	<script src="js/source.js"></script>  
+	<!-- <script src="../SPS/getLayer.js"></script>  
+	<script src="../SPS/getParticleSystem.js"></script>  	 -->
+
+		<style>
+ 
+			.loading {
+			   display: inline-block;
+			   position:absolute;
+			   width: 100px;
+			   height: 100px;
+			   background-color: #00aacc;
+			   border-radius: 50%;
+			   
+			   box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.5) inset,
+				 0 5px 12px rgba(0, 0, 0, 0.15);
+			   overflow: hidden;
+			 }
+			 .loading:before,
+			 .loading:after {
+			   content: "";
+			   position: absolute;
+			   width: 100%;
+			   height: 100%;
+			   border-radius: 45%;
+			   top: -40%;
+			   background-color: #D3D3D3;
+			   animation:  wave 5s linear infinite;
+			 }
+			 
+			 .loading:before {
+			   border-radius: 30%;
+			   background: rgba(255, 255, 255, 0.4);
+			   animation:  wave 5s linear infinite;
+			 }
+			 
+			 
+			 
+			 @keyframes wave {
+			   0% {
+				 transform: rotate(0);
+			   }
+			   100% {
+				 transform: rotate(360deg);
+			   }
+			 }
+		   
+			@keyframes animateC
+		   {
+			 0%
+			 {
+			   transform:rotate(0deg);
+			 }
+			 100%
+			 {
+			   transform:rotate(360deg);
+			 }
+		   }
+		   @keyframes animate
+		   {
+			 0%
+			 {
+			   transform:rotate(45deg);
+			 }
+			 100%
+			 {
+			   transform:rotate(405deg);
+			 }
+		   }
+		   
+		   
+
+			   
+			   </style>
+
+	</head>
+
+	<body>
+
+		  <!--LEFT LINE-->
+		  <div id="left"></div>
+		  <!--RIGHT LINE-->
+		  <div id="right"></div>
+		  <!--TOP LINE-->
+		  <div id="top"></div>
+		  <!--BOTTOM LINE-->
+		  <div id="bottom"></div>
+		  <!--MIDDLE LINE LOGO UPPER LEFT CORNER-->
+		  <div id="middle"></div>
+		
+
+		<!-- The loading element overlays all else until the model is loaded, at which point we remove this element from the DOM -->
+		<div class="loading" id="js-loader"></div>
+
+		<!-- Just a quick notice to the user that it can be interacted with -->
+		<span class="drag-notice" id="js-drag-notice">Rotate 3D Model&#176;</span>
+
+		<!-- The canvas element is used to draw the 3D scene -->
+		<canvas id="c"></canvas>
+
+		<div id="ThreeJS" style="position: absolute; left:0px; top:0px"></div>
+
+		<div id="water" style="position: absolute; left:0px; top:0px"></div>
+
+		<!-- second camera top -->
+		<div id="cTop" tabindex="1"></div>
+
+		
+
+		<!-- SVG to PNG to PDF -->
+		<div id="svg-container" visibility="hidden">
+			<img src="img/F1006 blk.svg">
+		</div>
+		<canvas id="canvasSVG" width="800" height="400" hidden>
+			<img src="img/F1006 blk.svg">
+		</canvas>
+		<div id="png-container"></div>
+
+		<!-- logo container -->
+		<div class="logo_container">
+			<div class="logo_background">
+				<div class="logo">
+					<a target="_blank" href="/index.html">
+					<img src="img/logo2.png" onmouseover="rollover(this)" onmouseout="mouseaway(this)" alt="" />
+						
+					<script src="js/logo.js"></script>
+						
+					</a>
+				</div>
+				<div id="cat" class="logo_title">Funforms</div>
+			</div>
+		</div>
+			
+		<div class="footer_background"></div>
+
+    <!--OPEN BOTTOM OPTIONS-->   
+    <div class="right_console" onclick="openNav()">
+		<span class="openBTN" style="cursor: pointer;">&#9776; open</span>
+	</div>
+
+	     <!-- start console -->
+		 <div id="mySidenav" class="sidenav">
+			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><i class="material-icons md-36" style="color: white;">exit_to_app</i></a>
+		  <!-- Trigger/Open The PLAY Animation Modal -->     
+		  <div class="play" id="AnimButtonId" style="cursor: pointer">
+			 <a><strong>PLAY</strong></a>
+		  </div>
+		  <!-- Trigger/Open The STOP Animation Modal --> 
+		  <div class="stop" id="stopButtonId" style="cursor: pointer">
+			 <a><strong>STOP</strong></a>
+		  </div>
+		  
+		  <!-- TTITLE RESOURCES -->
+		  <div class="resources" id="">
+			 <i class="material-icons md-18" style="color: white;">settings_applications</i>
+			 <span>&nbsp; resources</span>
+		  </div>
+		  
+		  <!-- Trigger/Open SHOW DIMENSION Modal -->
+		  <div class="show" id="myBtnshow" style="cursor: pointer;">
+			 <a><strong>SHOW</strong> Dimensions</a>
+		  </div>
+	   
+		  <!-- Trigger/Open RHINO SPRAYER IN MOTION Modal -->
+		  <div class="salesheet" id="myBtn" style="cursor: pointer">
+			<a><strong>RHINO SPRAYER</strong> In Motion!</a>
+		  </div>     
+	   
+		  <!-- Trigger/Open DOWNLOAD FLYER Modal -->
+		  <div class="salesheet2" style="cursor: pointer;">
+		   <a href="Docu/massivesplash_ss_02.pdf" target="_blank" style="cursor: pointer;"><strong>DOWNLOAD</strong> SPLASH FLYER</a>
+		  </div>
+	   
+		  <!-- TITLE COLORS -->
+		  <div class="color" id="">
+			  <i class="material-icons md-18" style="color: white;">color_lens</i>
+			  <span>&nbsp; colors</span>
+		  </div>
+		  
+		  <!-- Child options -->
+		  <div class="options">
+			  <div class= "Section">Parts</div>
+			 <div class="option --is-active" data-option="buckets">
+				 <img src="" alt="" /><a class="text_buttom">RHINO</a>
+			 </div>
+			 <!--<div class="intup_option"><a>Red</a></div>-->
+			 <!-- <span class= "option_divider"></span> -->
+			 <div class="option" data-option="handler1">
+				 <img src="" alt="" /><a class="text_buttom">ROCK</a>
+			 </div>
+			 <!--<div class="intup_option"><a>Blue</a></div>-->
+			 <!--<span class= "option_divider"></span>-->
+			 <div class="option" data-option="handler2">
+				 <img src="" alt="" /><a class="text_buttom">GRASS</a>
+			 </div>
+			 <!--<div class="intup_option"><a>Yellow</a></div>-->
+			 <!--<span class= "option_divider"></span>-->
+			 <!-- <div class="option" data-option="handler3">
+				 <img src="" alt="" /><a class="text_buttom">COLOR 4</a>
+			 </div> -->
+			 
+		  </div>
+		  
+		  <!-- Color Swatch -->
+		  <div class="all_tray">
+		   <div class= "swatch">Swatch</div>
+			 <!--<span class= "tray_divider"></span>-->
+			 <div id="js-tray" class="tray">
+			   <div id="js-tray-slide" ></div>
+			   <!--<div id="js-tray-slide" class="tray__slide"></div>-->
+			 </div>
+		  </div>
+		  
+		  
+		  <!-- PRINT COLOR SELCTION WITH jsPDF and HTML2Canvas-->
+		 <div class="canvasPDF" >
+		   <a onclick="screenshot()" ><span style="font-weight:bold; font-size:18px; color:#818181">print</span> color Selection</a>
+		 </div>
+		  
+	 
+		  
+		  <!-- TITLE SPECIFICATION -->
+		  <div class="specification" id="">
+			  <i class="material-icons md-18" style="color: white;">square_foot</i>
+			  <span>&nbsp; specification</span>
+		  </div>
+		  <!--SPECIFICATION INFO-->
+		  <div class="spec_container">
+			 <!--CATEGORY-->
+			  <div class="spec_title">Category</div>
+			  <div id="cat"></div>
+			  <div class="intup_spec" id="category"><a>FUN FORM</a></div>
+			  <!--DIMENSION-->
+			  <div class="spec_title">Dimensions</div>
+			  <div class="intup_spec"><a>Height: 14'-3" | 435 CM</a></div>
+			  <!--FLOW REQUIEREMENT-->
+			  <div class="spec_title">Flow Requirements</div>
+			  <div class="intup_spec"><a>40 - 100 GPM/ 152-379 LPM</a>
+			  </div>
+		  </div>
+		  
+		  <!--COPYGRIGHT-->
+		  <div class="copyright">&copy; WATER ODYSSEY - All right Reserved.</div>
+	 
+		 </div>
+		 <!-- end console -->
+		
+
+		     <!--NAME AND CATEGORY LABEL BOTTOM-->
+			 <div class="frame"> 
+				<h1 class="frame__title">BLACK RHINO</h1>
+				<span class= "frame_vertical"></span>
+				<h1 class="frame__subtitle">Sprayer</h1>
+			  </div>
+
+
+			  	<!-- Show Dimensions Modal-->
+<div id="myModalshow" class="modal2">
+	<!-- Modal content All -->
+	<div class="modal-content2">
+	  <!--(x) Close button --> 
+	  <span class="close2">&times;</span>
+	  <!-- Modal SVG and info-->
+	  <div class="modal-content-container2">
+		  <!--Modal SVG -->
+		  <div class="svg_container">
+			  <img src="img/F1006-SVG.svg" class="svg_color st0 st5 st6 st3" stroke="black" stroke-width="10">
+		  </div>
+		  <!--Modal Info-->
+		  <div class="dim_description">
+			  <div class="dim_spec_container">
+				  <div class="dim_spec_title">
+					  <a><strong>Width =</strong></a>
+					  <a class="dim_intup_spec">5'</a>
+					  <a class= "dim_spec_title_divider"></a>
+					  <a><strong>Lenght =</strong></a>
+					  <a class="dim_intup_spec">10'</a>
+					  <a class= "dim_spec_title_divider"></a>
+					  <a><strong>height =</strong></a>
+					  <a class="dim_intup_spec">14' - 3"</a>
+				  </div>
+			  </div>
+		  </div>
+		</div>
+	</div>
+  </div>
+
+
+<!-- Rhino Sprayer In Motion Modal -->
+<div id="myModal" class="modal">
+
+	<!-- Modal content -->
+	<div class="modal-content">
+	  <!--(x) Close button --> 
+	  <span class="close">&times;</span>
+		<!-- Modal Video container-->
+		  <div class="modal-content-container">
+			<!-- Modal Video Link-->
+		  <iframe  src="https://www.youtube.com/embed/Mlq20WJ5Z54" frameborder="0" allowfullscreen class="modal-content-video">
+		  </iframe>
+		  </div>
+	</div>
+	</div>
+
+		<script type="importmap">
+			{
+				"imports": {
+					"three": "../build/three.module.js",
+					"three/addons/": "./jsm/",
+					"three/nodes": "./jsm/nodes/Nodes.js"
+				}
+			}
+		</script>
+
+
+
+		<script type="module">
+
+			import * as THREE from 'three';
+			import { NodeMaterial, float, texture } from 'three/nodes';
+			import { range, uniform, mix, uv, color, positionLocal, timerLocal, SpriteNodeMaterial } from 'three/nodes';
+			import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
+
+			import WebGPU from 'three/addons/capabilities/WebGPU.js';
+			import WebGL from 'three/addons/capabilities/WebGL.js';
+
+			import WebGPURenderer from 'three/addons/renderers/webgpu/WebGPURenderer.js';
+
+			import { nodeFrame } from 'three/addons/renderers/webgl-legacy/nodes/WebGLNodes.js';
+
+			import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+			import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+			import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
+
+			import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
+
+			import { BufferGeometry, MathUtils, Mesh, MeshStandardMaterial,} from 'three';
+
+			import { TransformControls } from 'three/addons/controls/TransformControls.js';
+
+			import { Flow } from 'three/addons/modifiers/CurveModifier.js';
+
+			import getLayer from "./SPS/getLayer.js";
+
+			import { getParticleSystem } from "./SPS/getParticleSystem.js";
+
+			import { getParticleSystem2 } from "./SPS/getParticleSystem2.js";
+
+			
+
+			let camera, scene, renderer, controls, clock, mixer, flow;
+			
+			const BackGround_Color = 0xf1f1f1;
+
+			let theModel;
+			let loaded = false;
+			const MODEL_PATH = 'RHINO.glb';
+
+			let activeOption = 'RHINO';
+
+			
+			
+			
+			// small camara parameters
+			const aspect = window.innerWidth / window.innerHeight;
+			let insetWidth, insetHeight;
+
+			const colors = [
+/* Add a camerra{
+  texture: 'img/wood_.jpg',
+  size: [2, 2, 2],
+  shininess: 60 },
+
+{
+  texture: '',
+  size: [4, 4, 4],
+  shininess: 0 },
+
+{
+  texture: '',
+  size: [8, 8, 8],
+  shininess: 10 },
+
+{
+  texture: '',
+  size: [3, 3, 3],
+  shininess: 0 },
+
+{
+  texture: '',
+  size: [6, 6, 6],
+  shininess: 0 },*/
+
+{
+  color: 'D60000',
+  textContent: 'test',},//coral
+
+{
+  color: 'E8F300' },//daffodil
+
+{
+  color: '00E4F3' },//sky
+
+{
+  color: '00C7D4' },//sea foam
+
+{
+  color: '00A1D4' },//teal
+
+{
+  color: '8FDA4D' },//avacado
+
+{
+  color: '19BA1B' },//green
+
+{
+  color: '759C53' },//evergreen
+  
+{
+  color: 'E4E8E8' },//sand
+  
+{
+  color: '898233' },//chocolate
+  
+{
+  color: 'FFFF00' },//yellow
+  
+{
+  color: 'FF0000' },//yellow    
+    
+{
+  color: '0046FF' },//yellow
+  
+{
+  color: 'EE82EE' },//yellow
+
+{
+  color: 'FFA500' },//yellow
+
+{
+  color: '00008B' },//yellow
+  
+  {
+  color: '759C53' },//yellow
+  
+  {
+  color: '19BA1B' },//yellow
+  
+  {
+  color: 'FFFF00' },//yellow
+  
+  {
+  color: '00A1D4' },//yellow
+  
+  {
+  color: '00008B' },//yellow
+  
+  {
+  color: '759C53' },//yellow
+  
+  {
+  color: 'E8F300' },//yellow
+  
+  {
+  color: '00C7D4' },//yellow
+    
+    
+    
+    
+    
+];
+
+	const LOADER = document.getElementById('js-loader');
+	const TRAY = document.getElementById('js-tray-slide');
+	const DRAG_NOTICE = document.getElementById('js-drag-notice');		
+
+					
+			
+	//Seleccionar el canvas en el html
+	const canvas = document.querySelector('#c');
+	const Top = document.querySelector('#cTop');
+	let camera2 = new THREE.PerspectiveCamera(10,window.innerWidth / window.innerHeight,0.01,500);
+
+	const water = document.querySelector('#water');
+
+
+
+	// init();
+	// animate();
+			
+	function init() {
+
+		
+
+
+		clock = new THREE.Clock();
+				
+		// Initial material
+		const INITIAL_MTL = new THREE.MeshPhongMaterial({ color: 0x0023FF, shininess: 1 });// add ,opacity: 0.2, transparent: true
+
+		const INITIAL_MAP = [
+				
+			{ childID: "bucket1" , mtl: INITIAL_MTL },  
+		// { childID: "bucket2" , mtl: INITIAL_MTL }, 
+		// { childID: "bucket3" , mtl: INITIAL_MTL }, 
+			];
+
+		// iniciar la Escena
+		scene = new THREE.Scene();
+		// scene.background = new THREE.Color( BackGround_Color );
+		// scene.fog = new THREE.Fog( 0xe0e0e0, 20, 100 );
+		scene.background = new THREE.Color(BackGround_Color);
+		scene.fog = new THREE.Fog(BackGround_Color, 20, 100);
+
+				
+
+		
+		// Ingresar Camara
+	
+		var cameraFar = 5;
+		camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight,0.25, 500);
+		camera.position.z = cameraFar;
+		camera.position.x = 1.2;
+		camera.position.y = 0.5;
+		camera.lookAt(0, 0.5, 0);
+		camera.name = "MainCam";
+			
+		// small camera
+				
+		camera2.position.z = -6;
+		camera2.position.x = 12;
+		camera2.position.y = 1;
+		camera2.lookAt(scene.position);
+		camera2.name = "OverheadCam";
+		// camera.add(camera2);
+		// scene.add(camera);
+
+		const Chelper = new THREE.CameraHelper( camera2 );
+		scene.add( Chelper );
+
+		//Ingresar Modelo
+		const dracoLoader = new DRACOLoader();
+		dracoLoader.setDecoderPath( 'jsm/libs/draco/gltf/' );
+
+		//Localizacion de Modelo
+		const loader = new GLTFLoader();
+				
+		loader.setDRACOLoader( dracoLoader );
+		loader.setPath( 'models/gltf/' );
+		loader.load( MODEL_PATH, function ( gltf ) {
+			theModel = gltf.scene;
+
+			theModel.traverse (o => {
+				if (o.isMesh) {
+					o.castShadow = true;
+					o.receiveShadow = true;
+				}
+			});
+
+
+
+		
+
+		
+		// Actualiazar la Escala 
+		theModel.scale.set(0.6, 0.6, 0.6);
+		theModel.rotation.y = Math.PI;
+
+		// Posecionar el modelo en direccion vertical
+		theModel.position.y = -0.6;
+
+	  // Set initial textures
+		for (let object of INITIAL_MAP) {
+			initColor(theModel, object.childID, object.mtl);
+		}
+
+		scene.add( theModel );
+
+		theModel.add(camera2);
+		// Remover el loader Inicial
+		LOADER.remove();
+		// DRAG_NOTICE.remove();
+
+		render();
+
+		} );
+
+
+			
+
+				
+		renderer = new THREE.WebGLRenderer( {  canvas, antialias: true, preserveDrawingBuffer: true } );
+		renderer.shadowMap.enabled = true;
+		renderer.setPixelRatio( window.devicePixelRatio );
+		renderer.setSize( window.innerWidth, window.innerHeight );
+		renderer.setAnimationLoop( render );
+		renderer.toneMapping = THREE.ACESFilmicToneMapping;
+		renderer.toneMappingExposure = 1;
+		document.body.appendChild( renderer.domElement );
+		// container.appendChild( renderer.domElement );
+
+
+		// Add lights
+		var hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff,1);
+		hemiLight.position.set(0, 2, 2);
+		// Add hemisphere light to scene   
+		scene.add(hemiLight);
+
+		const helper = new THREE.HemisphereLightHelper( hemiLight, 0.2 );
+		scene.add( helper );
+
+		var dirLight = new THREE.DirectionalLight(0xffffff, 0.45);
+		dirLight.position.set(0.5, 1, 1.5);
+		dirLight.castShadow = true;
+		dirLight.shadow.mapSize = new THREE.Vector2(1024, 1024);
+		// Add directional Light to scene    
+		scene.add(dirLight);
+
+		const helperdirect = new THREE.DirectionalLightHelper( dirLight, 0.2 );
+		scene.add( helperdirect );
+
+		// const helpercamera = new THREE.CameraHelper( camera );
+		// scene.add( helpercamera );
+
+		const axesHelper = new THREE.AxesHelper( 5 );
+		scene.add( axesHelper );
+
+		// Floor
+		var floorGeometry = new THREE.PlaneGeometry(5000, 5000, 1, 1);
+		var floorMaterial = new THREE.MeshPhongMaterial({
+		color: 0xF8F8F8,
+		shininess: 0 });
+
+		var floor = new THREE.Mesh(floorGeometry, floorMaterial);
+		floor.rotation.x = -0.5 * Math.PI;
+		floor.receiveShadow = true;
+		floor.position.y = -0.6;
+		scene.add(floor);
+
+		const grid = new THREE.GridHelper( 50, 50, 0xffffff, 0x7b7b7b );
+		grid.material.opacity = 0.4;
+		grid.material.transparent = true;
+		grid.position.y = -0.6;
+		scene.add( grid );
+
+		controls = new OrbitControls( camera, renderer.domElement );
+		controls.minDistance = 4;
+		controls.maxDistance = 10;
+		controls.maxPolarAngle = Math.PI / 2;
+		controls.minPolarAngle = Math.PI / 3;
+		controls.enableDamping = true;
+		controls.enablePan = false;
+		controls.dampingFactor = 0.1;
+		controls.autoRotate = false; // Toggle this if you'd like the feature to automatically rotate
+		controls.autoRotateSpeed = 0.2; // 30
+				
+		// camera2 control
+		const controls2 = new OrbitControls(camera2, renderer.domElement);
+
+		controls2.enabled = false;
+		controls2.enableRotate  = false;
+			
+
+
+				
+	}
+////////////////////
+init();
+
+
+
+			// Function - Add the textures to the models
+function initColor(parent, type, mtl) {
+  parent.traverse(o => {
+    if (o.isMesh) {
+      if (o.name.includes(type)) {
+        o.material = mtl;
+        o.nameID = type; // Set a new property to identify this object
+      }
+    }
+  });
+}
+
+
+
+
+
+function resizeRendererToDisplaySize(renderer) {
+	const canvas = renderer.domElement;
+	const width = canvas.clientWidth;
+	const height = canvas.clientHeight;
+	const needResize = canvas.width !== width || canvas.height !== height;
+	if (needResize) {
+		renderer.setSize(width, height, false);
+	}
+		return needResize;
+}
+
+			
+
+// Function - Opening rotate
+			
+let initRotate = 0;
+function initialRotation() {
+	initRotate++;
+	if (initRotate <= 35) {
+		theModel.rotation.y += Math.PI / 90;
+				
+	} else {
+		loaded = true;
+	}
+}
+
+// const geometry = new THREE.BoxGeometry(0.1,0.1,0.1);
+const geometry = new THREE.SphereGeometry(0.025, 20, 20)
+const material = new THREE.MeshStandardMaterial({
+	color: 0x00000
+});
+
+
+const cube = new THREE.Mesh(geometry, material);
+cube.position.y = 0.47;
+cube.position.z = 0.19;
+cube.position.x = -0.1;
+// cube.rotation.y = 1;
+
+scene.add(cube);
+
+const cube2 = new THREE.Mesh(geometry, material);
+cube2.position.y = 0.47;
+cube2.position.z = 0;
+cube2.position.x = -0.5;
+// cube.rotation.y = 1;
+
+scene.add(cube2);
+				
+const cube3 = new THREE.Mesh(geometry, material);
+cube3.position.y = 0.46;
+cube3.position.z = 0.265;
+cube3.position.x = 0.3;
+// cube.rotation.y = 1;
+
+scene.add(cube3);
+
+const cube4 = new THREE.Mesh(geometry, material);
+// cube4.position.y = 0.46; // verde altura
+// cube4.position.z = -0.48; // azul largo
+// cube4.position.x = 0.05; // rojo ancho
+cube4.position.y = 0.46; // verde altura
+cube4.position.z = -0.45; // azul largo
+cube4.position.x = -0.1; // rojo ancho
+
+// cube.rotation.y = 1;
+
+// scene.add(cube4);
+
+const emitter4 = new THREE.Mesh(geometry, material);
+emitter4.position.y = 0.46; // verde altura
+emitter4.position.z = -0.46; // azul largo
+emitter4.position.x = 0.09; // rojo ancho
+
+scene.add(emitter4);
+
+const smokeEffect = getParticleSystem({
+camera,
+emitter:cube,
+parent: scene,
+rate: 500.0,
+texture: './SPS/img/light_01.png',
+			
+});
+
+const smokeEffect2 = getParticleSystem({
+camera,
+emitter:cube2,
+parent: scene,
+rate: 500.0,
+texture: './SPS/img/light_01.png',
+			
+});
+
+const smokeEffect3 = getParticleSystem({
+camera,
+emitter:cube3,
+parent: scene,
+rate: 500.0,
+texture: './SPS/img/light_01.png',
+			
+});
+
+const smokeEffect4 = getParticleSystem2({
+camera,
+emitter:cube4,
+parent: scene,
+rate: 2500.0,
+texture: './SPS/img/light_01.png',
+			
+});
+
+
+
+
+
+const AnimButton = document.getElementById( 'AnimButtonId' );
+const StopButton = document.getElementById( 'stopButtonId' );
+
+// StopButton.addEventListener('click', (smokeEffect) => {
+// 	smokeEffect.stop;
+// 	console.log('STOP PARTICLES')
+	
+// });
+
+// // StopButton.onclick = function StopAnim() {
+// // 	smokeEffect.stopAllAction();	
+// // }
+
+
+// AnimButton.addEventListener('click', (event) => {
+// 	alert('Button clicked!');
+// 	event.stopPropagation();
+// 	console.log('START PARTICLES')
+	
+// })
+
+// StopButton.addEventListener('click', () => {
+// 	alert('Button clicked!');
+// 	event.preventDefault();
+// 	console.log('STOP PARTICLES')
+	
+// })
+          
+// AnimButton.onclick = function Animation() {
+// 	smokeEffect.update(0.01);	
+// }
+// //      	AnimButton.onclick = function Animation() {
+//             mixer.setLoop(THREE.LoopRepeat);    
+//             mixer.transparent = true;
+//             mixer.opacity = (0.1);
+//             // action.enabled = true;
+// 			// action.fadeIn(0.5);
+//             mixer.play();
+//         }				
+		
+
+
+// StopButton.addEventListener('click', () => {
+// 		smokeEffect.remove = true;
+// 		// smokeEffect.hide = true;
+// 		// smokeEffect.visible = false;
+// 		// smokeEffect.remove();
+// 		// smokeEffect.update(0.00);
+// 		console.log('STOP PARTICLES')
+		
+	
+// 	})
+
+	
+// AnimButton.addEventListener('click', () => {
+// 		smokeEffect.update(0.01);
+// 		smokeEffect2.update(0.01);	
+// 		smokeEffect3.update(0.01);	
+// 		smokeEffect4.update(0.01);	
+// 		// smokeEffect.visible = true;
+		
+// 		console.log('START PARTICLES')
+	
+// 	})
+
+
+function animate() {
+
+
+	
+	// AnimButton.addEventListener(  {
+	// 	smokeEffect.update(0.01);
+	// 	smokeEffect2.update(0.01);	
+	// 	smokeEffect3.update(0.01);	
+	// 	smokeEffect4.update(0.01);	
+	// 	// smokeEffect.visible = true;
+		
+	// 	console.log('START PARTICLES')
+	
+	// })
+		
+	
+	smokeEffect.update(0.01);
+	smokeEffect2.update(0.01);	
+	smokeEffect3.update(0.01);	
+	smokeEffect4.update(0.01);	
+	
+	AnimButton.addEventListener('click', () => {
+		// smokeEffect.update(0.01);
+		// smokeEffect2.update(0.01);	
+		// smokeEffect3.update(0.01);	
+		// smokeEffect4.update(0.01);	
+		// smokeEffect.visible = true;
+		
+		console.log('START PARTICLES')
+	
+	})
+
+
+	StopButton.addEventListener('click', () => {
+		smokeEffect.update();	
+		smokeEffect2.update();	
+		smokeEffect3.update();	
+		smokeEffect4.update();	
+		// smokeEffect.hide();
+		// smokeEffect.visible = false;
+		// smokeEffect.update(0.00);
+		console.log('STOP PARTICLES')
+	
+	})
+
+	requestAnimationFrame(animate);
+
+
+	render();
+	
+	//    turn on the scissor
+	renderer.setScissorTest(true);
+	{
+		camera.aspect = setScissorForElement(canvas);
+		camera.updateProjectionMatrix();
+	}
+	
+		renderer.render(scene, camera);
+						
+	{
+		camera2.aspect = setScissorForElement(Top);     
+		camera2.updateProjectionMatrix();
+		camera2.lookAt(scene.position);
+	}
+	
+		renderer.render(scene, camera2);
+
+	if (theModel != null && loaded == false) {
+		initialRotation();
+		
+		
+		DRAG_NOTICE.classList.add('start');
+	}
+	
+	// render();
+				
+}
+
+	animate();
+
+function render() {
+			
+	nodeFrame.update();
+				
+	if ( mixer ) mixer.update( clock.getDelta() );
+	
+	
+	controls.update(); // required if damping enabled
+				
+	// renderer.render( scene, camera );
+	// renderer.render(scene, camera2);
+
+}
+			
+
+
+function setScissorForElement(elem) {
+    
+    const canvasRect = canvas.getBoundingClientRect();
+    const elemRect = elem.getBoundingClientRect();
+
+    // compute a canvas relative rectangle
+    const right = Math.min(elemRect.right, canvasRect.right) - canvasRect.left;
+    const left = Math.max(0, elemRect.left - canvasRect.left);
+    const bottom = Math.min(elemRect.bottom, canvasRect.bottom) - canvasRect.top;
+    const top = Math.max(0, elemRect.top - canvasRect.top);
+
+    const width = Math.min(canvasRect.width, right - left);
+    const height = Math.min(canvasRect.height, bottom - top);
+
+    // setup the scissor to only render to that part of the canvas
+    const positiveYUpBottom = canvasRect.height - bottom;
+    renderer.setScissor(left, positiveYUpBottom, width, height);
+    renderer.setViewport(left, positiveYUpBottom, width, height);
+
+    // return the aspect
+    return width / height;
+  }
+
+
+// Function - Build Colors
+
+function buildColors(colors) {
+  for (let [i, color] of colors.entries()) {
+    let swatch = document.createElement('div');
+    swatch.classList.add('tray__swatch');
+    
+    if (color.texture)
+    {
+      swatch.style.backgroundImage = "url(" + color.texture + ")";
+    } else
+    {
+      swatch.style.background = "#" + color.color;
+    //   swatch.style.position = "relative";
+    //   swatch.style.width = "30px";
+    //   swatch.style.border = "1px solid red";
+      
+    }
+    
+    swatch.setAttribute('data-key', i);
+    TRAY.append(swatch);
+  }
+}
+
+buildColors(colors);
+
+// Select Option
+const options = document.querySelectorAll(".option");
+
+for (const option of options) {
+  option.addEventListener('click', selectOption);
+}
+
+function selectOption(e) {
+  let option = e.target;
+  activeOption = e.target.dataset.option;
+  for (const otherOption of options) {
+    otherOption.classList.remove('--is-active');
+  }
+  option.classList.add('--is-active');
+}
+
+// // Swatches
+const swatches = document.querySelectorAll(".tray__swatch");
+
+for (const swatch of swatches) {
+  swatch.addEventListener('click', selectSwatch);
+}
+
+
+
+function selectSwatch(e) {
+  let color = colors[parseInt(e.target.dataset.key)];
+  let new_mtl;
+
+  if (color.texture) {
+
+    let txt = new THREE.TextureLoader().load(color.texture);
+
+    txt.repeat.set(color.size[0], color.size[1], color.size[2]);
+    txt.wrapS = THREE.RepeatWrapping;
+    txt.wrapT = THREE.RepeatWrapping;
+
+    new_mtl = new THREE.MeshPhongMaterial({
+      map: txt,
+      shininess: color.shininess ? color.shininess : 10 });
+
+  } else
+
+  {
+    new_mtl = new THREE.MeshPhongMaterial({
+      color: parseInt('0x' + color.color),
+      shininess: color.shininess ? color.shininess : 10 });
+
+
+  }
+
+  setMaterial(theModel, activeOption, new_mtl);
+}
+
+
+
+function setMaterial(parent, type, mtl) {
+  parent.traverse(o => {
+    if (o.isMesh && o.nameID != null) {
+      if (o.nameID == type) {
+        o.material = mtl;
+      }
+    }
+  });
+}
+
+</script>
+	
+
+		<script src="js/canvg.min.js"></script>
+
+		<script src="jsPDF/jspdf.min.js"></script>
+		<!-- <script src="jsPDF/jspdf.debug.js"></script> -->
+		<script src="js/createdPDF.js"></script>
+		<script src="js/Rsidenav.js"></script>
+			
+		<!-- <script src="js/SPE.min.js"></script> -->
+				
+		<script src="js/JS_pop.js"></script>
+		<script src="js/JS_popshow.js"></script>
+	</body>
+</html>

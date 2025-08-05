@@ -1,0 +1,709 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import the original Three.js styles */
+@import url('/style.css');
+
+/* Import legacy CSS files for compatibility */
+@import url('../css/style2.css');
+
+@layer base {
+  body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+}
+
+@layer components {
+  .loading-spinner {
+    @apply relative;
+  }
+  
+  .loading-spinner::before,
+  .loading-spinner::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 45%;
+    top: -40%;
+    background-color: #D3D3D3;
+    animation: wave 5s linear infinite;
+  }
+  
+  .loading-spinner::before {
+    border-radius: 30%;
+    background: rgba(255, 255, 255, 0.4);
+    animation: wave 5s linear infinite;
+  }
+
+  /* Original loading div from HTML file - FIXED POSITIONING */
+  .loading {
+    display: inline-block;
+    position: fixed; /* Changed from absolute to fixed */
+    width: 100px;
+    height: 100px;
+    background-color: #00aacc;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.5) inset,
+      0 5px 12px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    z-index: 10004; /* Higher z-index to appear above overlay */
+  }
+  
+  .loading:before,
+  .loading:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 45%;
+    top: -40%;
+    background-color: #D3D3D3;
+    animation: wave 5s linear infinite;
+  }
+  
+  .loading:before {
+    border-radius: 30%;
+    background: rgba(255, 255, 255, 0.4);
+    animation: wave 5s linear infinite;
+  }
+
+  /* Semi-transparent overlay for loading state */
+  .loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(255, 255, 255, 1);
+    backdrop-filter: blur(4px);
+    z-index: 10003; /* Below loading animation but above everything else */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Three.js specific styles */
+  .three-canvas {
+    background-color: #000;
+    color: #fff;
+    font-family: Monospace;
+    font-size: 13px;
+    line-height: 24px;
+    overscroll-behavior: none;
+    pointer-events: auto !important;
+    z-index: 1 !important;
+    position: relative !important;
+  }
+
+  .three-overlay {
+    position: absolute;
+    font-size: 16px;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: rgba(0,0,0,0.7);
+  }
+
+  .three-overlay button {
+    background: transparent;
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 4px;
+    color: #ffffff;
+    padding: 12px 18px;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .three-info {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: center;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .three-info a, 
+  .three-info button, 
+  .three-info input, 
+  .three-info select {
+    pointer-events: auto;
+  }
+
+  /* Shared viewport styling */
+  .shared-viewport-container {
+    @apply border-2 border-gray-600 bg-black bg-opacity-20 rounded-lg overflow-hidden relative shadow-lg;
+    backdrop-filter: blur(4px);
+    transition: all 0.3s ease;
+  }
+
+  .shared-viewport-container:hover {
+    @apply border-gray-400 bg-opacity-30;
+    transform: scale(1.02);
+  }
+
+  .viewport-label {
+    @apply absolute top-2 left-2 text-white text-xs font-semibold bg-black bg-opacity-70 px-2 py-1 rounded;
+    backdrop-filter: blur(2px);
+  }
+
+  /* Camera switching buttons */
+  .camera-switch-btn {
+    @apply px-2 py-1 text-xs font-semibold rounded transition-all duration-200;
+    min-width: 60px;
+  }
+
+  .camera-switch-btn.active {
+    @apply bg-blue-600 text-white shadow-md;
+    transform: translateY(-1px);
+  }
+
+  .camera-switch-btn.inactive {
+    @apply bg-gray-700 text-gray-300;
+  }
+
+  .camera-switch-btn.inactive:hover {
+    @apply bg-gray-600 text-white;
+    transform: translateY(-1px);
+  }
+
+  /* Active camera indicator - updated for clean views */
+  .camera-indicator {
+    @apply w-2 h-2 rounded-full;
+    animation: pulse 2s infinite;
+  }
+
+  .camera-indicator.overhead {
+    @apply bg-blue-500; /* Changed from green to blue for clean view */
+  }
+
+  .camera-indicator.top {
+    @apply bg-blue-500;
+  }
+
+  .camera-indicator.front {
+    @apply bg-purple-500;
+  }
+
+  /* Legacy style2.css integration */
+  .legacy-layout {
+    /* Allow legacy styles to work alongside modern components */
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Logo class styling */
+  .logo {
+    position: relative;
+    width: 100%;
+    height: auto;
+    display: block;
+    
+    /* High-DPI optimization */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    -webkit-image-rendering: -webkit-optimize-contrast;
+    -webkit-image-rendering: crisp-edges;
+    -moz-image-rendering: crisp-edges;
+    -ms-image-rendering: crisp-edges;
+    
+    /* Hardware acceleration */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    will-change: transform, opacity;
+    
+    /* Prevent artifacts */
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    pointer-events: auto;
+    
+    /* Anti-aliasing control */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .logo img {
+    width: 100%;
+    height: auto;
+    display: block;
+    
+    /* High-DPI optimization */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    -webkit-image-rendering: -webkit-optimize-contrast;
+    -webkit-image-rendering: crisp-edges;
+    -moz-image-rendering: crisp-edges;
+    -ms-image-rendering: crisp-edges;
+    
+    /* Hardware acceleration */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    will-change: transform, opacity;
+    
+    /* Prevent artifacts */
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    pointer-events: auto;
+    
+    /* Smooth transitions */
+    transition: all 0.35s ease-in-out;
+  }
+
+  /* Logo container styling - Enhanced for high-DPI */
+  .logo-container {
+    position: fixed !important;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10000 !important; /* Highest z-index to appear above everything */
+    pointer-events: auto;
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Ensure crisp rendering */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+  }
+
+  .logo-container:hover {
+    transform: translateX(-50%) translateY(-2px);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* Border divs from original style2.css - positioned in front of canvas */
+/* Note: #middle div has been removed as requested */
+
+#top, #bottom, #left, #right {
+  background: #2a9cd7;
+  position: fixed;
+  z-index: 85 !important; /* In front of canvas but behind other UI elements */
+  pointer-events: none; /* Allow clicks to pass through */
+}
+
+#left, #right {
+  top: 1%; 
+  bottom: 1%;
+  width: 5px;
+}
+
+#left { 
+  left: 1%; 
+}
+
+#right { 
+  right: 1%; 
+}
+
+#top, #bottom {
+  left: 1%; 
+  right: 1%;
+  height: 5px;
+}
+
+#top { 
+  top: 1%; 
+}
+
+#bottom { 
+  bottom: 1%; 
+}
+
+/* Footer background from original style2.css - FULLY RESPONSIVE */
+.footer_background {
+  position: fixed !important;
+  bottom: 0;
+  left: 0;
+  width: 100vw !important; /* Full viewport width */
+  height: 14vh !important; /* 14% of viewport height */
+  background: #2a9cd7;
+  z-index: 90 !important; /* High z-index to appear above canvas but below frame */
+  pointer-events: none; /* Allow clicks to pass through to canvas */
+  box-sizing: border-box;
+}
+
+/* Frame container - FULLY RESPONSIVE */
+.frame {
+  position: fixed !important;
+  bottom: 0;
+  left: 0;
+ 
+  width: 100vw !important; /* Full viewport width */
+  height: 15vh !important; /* 15% of viewport height */
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: left;
+  padding: 0 !important; /* Remove padding to allow full width */
+  z-index: 100 !important; /* High z-index to appear above canvas and footer */
+  pointer-events: none; /* Allow clicks to pass through to canvas */
+  box-sizing: border-box;
+}
+
+.frame__title {
+  color: #fff !important;
+  position: absolute;
+  font-weight: 600;
+  font-size: clamp(0.8em, 3vw, 1.8em);
+  /* font-size: 2em !important; Fixed 2em size as requested */
+  display: inline-block;
+  font-family: 'Raleway', sans-serif;
+  pointer-events: auto; /* Allow interaction with title */
+  left: clamp(50px, 8vw, 100px); /* Responsive left margin */
+  bottom: clamp(15px, 4vh, 41px); /* Responsive bottom margin - MOVED DOWN 5PX */
+  margin: 0; /* Remove default margins */
+}
+
+.frame_vertical {
+  border-left: 2px solid #fff;
+  height: clamp(30px, 6vh, 50px); /* Responsive height */
+  position: absolute;
+  left: clamp(300px, 25vw, 355px); /* Responsive left position */
+  bottom: clamp(15px, 2.5vh, 40px); /* Responsive bottom position */
+  margin: 0; /* Remove default margins */
+}
+
+.frame__category { 
+  position: absolute;
+  font-size: clamp(1rem, 2.5vw, 1.5rem) !important; /* Responsive font size */
+  display: inline-block;
+  color: #fff !important;
+  font-family: 'Raleway', sans-serif;
+  pointer-events: auto; /* Allow interaction with subtitle */
+  left: clamp(320px, 27vw, 375px); /* Responsive left position */
+  bottom: clamp(10px, 5vh, 45px); /* Responsive bottom position - MOVED UP 15PX */
+  margin: 0; /* Remove default margins */
+}
+
+.frame__subcategory { 
+  position: absolute;
+  font-size: clamp(1rem, 2.5vw, 1.2rem) !important; /* Responsive font size */
+  display: inline-block;
+  color: #fff !important;
+  font-family: 'Raleway', sans-serif;
+  pointer-events: auto; /* Allow interaction with subtitle */
+  left: clamp(320px, 27vw, 375px); /* Responsive left position */
+  bottom: clamp(10px, 2vh, 45px); /* Responsive bottom position - MOVED UP 15PX */
+  margin: 0; /* Remove default margins */
+}
+
+/* Responsive breakpoints for optimal display */
+@media (max-width: 1024px) {
+  .footer_background {
+    height: 12vh !important; /* Slightly smaller on tablets */
+  }
+  
+  .frame {
+    height: 13vh !important; /* Adjust frame height for tablets */
+  }
+  
+  .frame__title {
+    font-size: 1.8em !important; /* Slightly smaller on tablets but still em-based */
+  }
+  
+  .frame__subtitle {
+    font-size: clamp(0.9rem, 2.2vw, 1.3rem) !important;
+  }
+  
+  .logo-container {
+    top: 16px;
+    padding: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer_background {
+    height: 10vh !important; /* Smaller on mobile */
+  }
+  
+  .frame {
+    height: 11vh !important; /* Adjust frame height for mobile */
+  }
+  
+  .frame__title {
+    font-size: 1.6em !important; /* Smaller on mobile but still em-based */
+  }
+  
+  .frame__subtitle {
+    font-size: clamp(0.8rem, 2vw, 1.1rem) !important;
+  }
+  
+  .frame_vertical {
+    height: clamp(20px, 4vh, 35px) !important;
+  }
+  
+  .logo-container {
+    top: 12px;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer_background {
+    height: 8vh !important; /* Even smaller on small mobile */
+  }
+  
+  .frame {
+    height: 9vh !important;
+    flex-direction: column; /* Stack elements vertically on very small screens */
+    justify-content: center;
+    align-items: flex-start;
+    padding-left: 20px !important;
+  }
+  
+  .frame__title {
+    position: relative !important;
+    left: 0 !important;
+    bottom: 0 !important;
+    font-size: 1.4em !important; /* Smaller on very small screens but still em-based */
+    margin-bottom: 5px;
+  }
+  
+  .frame_vertical {
+    display: none; /* Hide vertical divider on very small screens */
+  }
+  
+  .frame__subtitle {
+    position: relative !important;
+    left: 0 !important;
+    bottom: 0 !important;
+    font-size: clamp(0.7rem, 3vw, 1rem) !important;
+    margin: 0;
+  }
+  
+  .logo-container {
+    top: 8px;
+    padding: 8px;
+  }
+}
+
+/* High-DPI media queries for logo optimization */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .logo,
+  .logo img {
+    /* Enhanced settings for Retina displays */
+    image-rendering: -webkit-optimize-contrast;
+    -webkit-image-rendering: -webkit-optimize-contrast;
+    transform: translateZ(0) scale(1);
+    -webkit-transform: translateZ(0) scale(1);
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) {
+  .logo,
+  .logo img {
+    /* Ultra high-DPI displays */
+    image-rendering: -webkit-optimize-contrast;
+    -webkit-image-rendering: -webkit-optimize-contrast;
+    transform: translateZ(0) scale(1);
+    -webkit-transform: translateZ(0) scale(1);
+  }
+}
+
+/* Responsive viewport adjustments */
+@media (max-width: 1024px) {
+  .shared-viewport-container {
+    width: 200px;
+    height: 150px;
+  }
+}
+
+@media (max-width: 768px) {
+  .shared-viewport-container {
+    width: 160px;
+    height: 120px;
+  }
+  
+  .camera-switch-btn {
+    @apply px-1 py-1 text-xs;
+    min-width: 50px;
+  }
+}
+
+@media (max-width: 640px) {
+  .shared-viewport-container {
+    width: 140px;
+    height: 105px;
+  }
+  
+  .camera-switch-btn {
+    @apply px-1 py-0.5 text-xs;
+    min-width: 45px;
+  }
+}
+
+@keyframes wave {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Custom scrollbar for control panel */
+.overflow-y-auto::-webkit-scrollbar {
+  width: 6px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Ensure Three.js canvas compatibility */
+canvas {
+  display: block;
+}
+
+/* GUI styles for Three.js */
+.lil-gui {
+  z-index: 2 !important;
+}
+
+@media all and ( max-width: 640px ) {
+  .lil-gui.root { 
+    right: auto;
+    top: auto;
+    max-height: 50%;
+    max-width: 80%;
+    bottom: 0;
+    left: 0;
+  }
+}
+
+/* Smooth transitions for layout changes */
+.viewport-sidebar {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Enhanced logo styling for high-DPI displays */
+.logo-container img {
+  transition: all 0.3s ease;
+  max-height: 80px; /* Ensure logo doesn't get too large */
+  
+  /* High-DPI optimization */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  -webkit-image-rendering: -webkit-optimize-contrast;
+  -webkit-image-rendering: crisp-edges;
+  -moz-image-rendering: crisp-edges;
+  -ms-image-rendering: crisp-edges;
+  
+  /* Hardware acceleration */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: transform, opacity;
+  
+  /* Prevent artifacts */
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  pointer-events: auto;
+}
+
+.logo-container:hover img {
+  transform: scale(1.05) translateZ(0);
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.2));
+}
+
+/* Improved viewport visual hierarchy */
+.shared-viewport-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* Legacy compatibility layer */
+.legacy-frame {
+  /* Ensure legacy frame styles work with modern layout */
+  position: relative;
+  z-index: 10;
+}
+
+.legacy-borders {
+  /* Support for legacy border system */
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Integration helpers for style2.css */
+.style2-compatible {
+  /* Namespace for style2.css compatibility */
+  font-family: 'Raleway', sans-serif;
+}
+
+.style2-compatible .frame {
+  /* Ensure legacy frame styling works */
+  position: absolute;
+  bottom: 25px;
+}
+
+.style2-compatible .logo_container {
+  /* Preserve legacy logo positioning */
+  position: absolute;
+  top: 5%;
+}
+
+/* Ensure logo stays above all other elements */
+.fixed.top-6.left-1\/2 {
+  z-index: 10000 !important;
+}

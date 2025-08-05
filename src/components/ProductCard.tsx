@@ -21,7 +21,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 }) => {
   const handleClick = () => {
     // Open the ProductView application's indexProduct.html (Three.js template) in a new tab
-    window.open('/ProductView/indexProduct.html', '_blank');
+    window.open('/src/components/ProductView/indexProduct.html', '_blank');
     
     if (onView) {
       onView();

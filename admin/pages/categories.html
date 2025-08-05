@@ -1,0 +1,97 @@
+<div class="p-6 space-y-6">
+    <!-- Page Header -->
+    <div class="flex items-center justify-between">
+        <div>
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Category Management</h2>
+            <p class="text-gray-600 dark:text-gray-400">Organize your products with categories and filters</p>
+        </div>
+        <div class="flex items-center space-x-3">
+            <button id="add-category" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors flex items-center space-x-2">
+                <i data-lucide="plus" class="w-4 h-4"></i>
+                <span>Add Category</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Categories Table -->
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow">
+        <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+            <div class="flex items-center justify-between">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Categories</h3>
+                <div class="flex items-center space-x-3">
+                    <div class="relative">
+                        <input id="category-search" type="text" placeholder="Search categories..." class="pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm">
+                        <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                <thead class="bg-gray-50 dark:bg-gray-700">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Category</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">ID</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Products</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Sort Order</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Status</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="categories-table-body" class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                    <!-- Categories will be loaded here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Category Statistics -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+            <div class="flex items-center">
+                <div class="p-3 rounded-lg bg-blue-100 dark:bg-blue-900">
+                    <i data-lucide="filter" class="w-6 h-6 text-blue-600 dark:text-blue-400"></i>
+                </div>
+                <div class="ml-4">
+                    <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Total Categories</p>
+                    <p id="total-categories" class="text-2xl font-bold text-gray-900 dark:text-white">0</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+            <div class="flex items-center">
+                <div class="p-3 rounded-lg bg-green-100 dark:bg-green-900">
+                    <i data-lucide="eye" class="w-6 h-6 text-green-600 dark:text-green-400"></i>
+                </div>
+                <div class="ml-4">
+                    <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Active Categories</p>
+                    <p id="active-categories" class="text-2xl font-bold text-gray-900 dark:text-white">0</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+            <div class="flex items-center">
+                <div class="p-3 rounded-lg bg-purple-100 dark:bg-purple-900">
+                    <i data-lucide="package" class="w-6 h-6 text-purple-600 dark:text-purple-400"></i>
+                </div>
+                <div class="ml-4">
+                    <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Avg Products/Category</p>
+                    <p id="avg-products" class="text-2xl font-bold text-gray-900 dark:text-white">0</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Empty State -->
+    <div id="categories-empty" class="text-center py-12 hidden">
+        <i data-lucide="filter" class="w-16 h-16 mx-auto text-gray-400 mb-4"></i>
+        <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-2">No categories found</h3>
+        <p class="text-gray-600 dark:text-gray-400 mb-6">Create categories to organize your products effectively.</p>
+        <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors flex items-center space-x-2 mx-auto">
+            <i data-lucide="plus" class="w-4 h-4"></i>
+            <span>Add Category</span>
+        </button>
+    </div>
+</div>

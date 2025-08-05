@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Aquatic Play Equipment</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script>
+        // Load environment variables from main app
+        window.VITE_SUPABASE_URL = 'https://your-project.supabase.co';
+        window.VITE_SUPABASE_ANON_KEY = 'your-anon-key';
+        
+        // Try to get from parent window or localStorage
+        try {
+            const storedUrl = localStorage.getItem('supabase_url');
+            const storedKey = localStorage.getItem('supabase_key');
+            if (storedUrl && storedKey) {
+                window.VITE_SUPABASE_URL = storedUrl;
+                window.VITE_SUPABASE_ANON_KEY = storedKey;
+            }
+        } catch (e) {
+            console.log('Could not load stored credentials');
+        }
+    </script>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="fixed inset-0 bg-white dark:bg-gray-900 z-50 flex items-center justify-center">
+        <div class="text-center">
+            <div class="loading-spinner mb-4"></div>
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Loading Dashboard</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Preparing your admin interface...</p>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div id="app" class="min-h-screen hidden">
+        <!-- Header Component -->
+        <div id="header-container"></div>
+        
+        <!-- Sidebar Component -->
+        <div id="sidebar-container"></div>
+        
+        <!-- Main Content Area -->
+        <main id="main-content" class="transition-all duration-300">
+            <!-- Page content will be loaded here -->
+        </main>
+    </div>
+
+    <!-- Modals Container -->
+    <div id="modals-container"></div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="fixed top-4 right-4 z-50 space-y-2"></div>
+
+    <!-- Scripts -->
+    <script src="js/supabase.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

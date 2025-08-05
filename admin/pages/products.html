@@ -1,0 +1,107 @@
+<div class="p-6 space-y-6">
+    <!-- Page Header -->
+    <div class="flex items-center justify-between">
+        <div>
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Product Management</h2>
+            <p class="text-gray-600 dark:text-gray-400">Manage your aquatic play equipment catalog</p>
+        </div>
+        <div class="flex items-center space-x-3">
+            <button id="export-products" class="px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-colors flex items-center space-x-2">
+                <i data-lucide="download" class="w-4 h-4"></i>
+                <span>Export</span>
+            </button>
+            <button id="add-product" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors flex items-center space-x-2">
+                <i data-lucide="plus" class="w-4 h-4"></i>
+                <span>Add Product</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Filters and Search -->
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <!-- Search -->
+            <div class="md:col-span-2">
+                <div class="relative">
+                    <input id="product-search" type="text" placeholder="Search products..." class="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                    <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5"></i>
+                </div>
+            </div>
+
+            <!-- Category Filter -->
+            <div>
+                <select id="category-filter" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                    <option value="">All Categories</option>
+                </select>
+            </div>
+
+            <!-- Status Filter -->
+            <div>
+                <select id="status-filter" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                    <option value="">All Status</option>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                    <option value="featured">Featured</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- Products Grid/Table Toggle -->
+    <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+            <span class="text-sm text-gray-600 dark:text-gray-400">View:</span>
+            <div class="flex bg-gray-100 dark:bg-gray-700 rounded-lg p-1">
+                <button id="grid-view" class="px-3 py-1 text-sm rounded-md transition-colors bg-white dark:bg-gray-600 text-gray-900 dark:text-white shadow-sm">
+                    <i data-lucide="grid-3x3" class="w-4 h-4"></i>
+                </button>
+                <button id="table-view" class="px-3 py-1 text-sm rounded-md transition-colors text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">
+                    <i data-lucide="list" class="w-4 h-4"></i>
+                </button>
+            </div>
+        </div>
+        <div class="text-sm text-gray-600 dark:text-gray-400">
+            <span id="products-count-display">0 products</span>
+        </div>
+    </div>
+
+    <!-- Products Content -->
+    <div id="products-content">
+        <!-- Grid View -->
+        <div id="products-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Products will be loaded here -->
+        </div>
+
+        <!-- Table View -->
+        <div id="products-table" class="bg-white dark:bg-gray-800 rounded-lg shadow hidden">
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                    <thead class="bg-gray-50 dark:bg-gray-700">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Product</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Category</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Views</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Created</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="products-table-body" class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                        <!-- Products will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Empty State -->
+    <div id="products-empty" class="text-center py-12 hidden">
+        <i data-lucide="package" class="w-16 h-16 mx-auto text-gray-400 mb-4"></i>
+        <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-2">No products found</h3>
+        <p class="text-gray-600 dark:text-gray-400 mb-6">Get started by adding your first product to the catalog.</p>
+        <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors flex items-center space-x-2 mx-auto">
+            <i data-lucide="plus" class="w-4 h-4"></i>
+            <span>Add Product</span>
+        </button>
+    </div>
+</div>

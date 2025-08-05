@@ -1,0 +1,237 @@
+<div class="p-6 space-y-6">
+    <!-- Page Header -->
+    <div class="flex items-center justify-between">
+        <div>
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Settings</h2>
+            <p class="text-gray-600 dark:text-gray-400">Manage your system preferences and data</p>
+        </div>
+    </div>
+
+    <!-- Settings Tabs -->
+    <div class="border-b border-gray-200 dark:border-gray-700">
+        <nav class="-mb-px flex space-x-8">
+            <button class="settings-tab active py-2 px-1 border-b-2 font-medium text-sm" data-tab="general">
+                General
+            </button>
+            <button class="settings-tab py-2 px-1 border-b-2 font-medium text-sm" data-tab="data">
+                Data Management
+            </button>
+            <button class="settings-tab py-2 px-1 border-b-2 font-medium text-sm" data-tab="security">
+                Security
+            </button>
+            <button class="settings-tab py-2 px-1 border-b-2 font-medium text-sm" data-tab="appearance">
+                Appearance
+            </button>
+        </nav>
+    </div>
+
+    <!-- General Settings -->
+    <div id="general-settings" class="settings-content">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-6">General Settings</h3>
+            
+            <div class="space-y-6">
+                <!-- Site Information -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Site Title</label>
+                    <input type="text" value="Aquatic Play Equipment Catalog" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Site Description</label>
+                    <textarea rows="3" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white">Professional aquatic play equipment for water parks and recreational facilities.</textarea>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Contact Email</label>
+                        <input type="email" value="admin@example.com" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Phone Number</label>
+                        <input type="tel" value="+1 (555) 123-4567" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                    </div>
+                </div>
+
+                <!-- Save Button -->
+                <div class="flex justify-end">
+                    <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
+                        Save Changes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Data Management -->
+    <div id="data-settings" class="settings-content hidden">
+        <div class="space-y-6">
+            <!-- Export Data -->
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Export Data</h3>
+                <p class="text-gray-600 dark:text-gray-400 mb-6">Download your data in various formats for backup or analysis.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <button id="export-products-btn" class="flex items-center justify-center px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                        <i data-lucide="package" class="w-5 h-5 mr-2 text-blue-600"></i>
+                        <span class="font-medium">Export Products</span>
+                    </button>
+                    <button id="export-categories-btn" class="flex items-center justify-center px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                        <i data-lucide="filter" class="w-5 h-5 mr-2 text-green-600"></i>
+                        <span class="font-medium">Export Categories</span>
+                    </button>
+                    <button id="export-all-btn" class="flex items-center justify-center px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                        <i data-lucide="download" class="w-5 h-5 mr-2 text-purple-600"></i>
+                        <span class="font-medium">Export All</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Import Data -->
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Import Data</h3>
+                <p class="text-gray-600 dark:text-gray-400 mb-6">Upload CSV or Excel files to bulk import products and categories.</p>
+                
+                <div class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-8 text-center">
+                    <i data-lucide="upload" class="w-12 h-12 mx-auto text-gray-400 mb-4"></i>
+                    <p class="text-lg font-medium text-gray-900 dark:text-white mb-2">Drop files here or click to browse</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Supports CSV, XLSX files up to 10MB</p>
+                    <input type="file" id="import-file" class="hidden" accept=".csv,.xlsx,.xls">
+                    <button onclick="document.getElementById('import-file').click()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
+                        Choose File
+                    </button>
+                </div>
+            </div>
+
+            <!-- Backup & Restore -->
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Backup & Restore</h3>
+                <p class="text-gray-600 dark:text-gray-400 mb-6">Create backups of your entire database or restore from previous backups.</p>
+                
+                <div class="flex items-center space-x-4">
+                    <button class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors flex items-center space-x-2">
+                        <i data-lucide="shield" class="w-4 h-4"></i>
+                        <span>Create Backup</span>
+                    </button>
+                    <button class="px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-colors flex items-center space-x-2">
+                        <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                        <span>Restore Backup</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Security Settings -->
+    <div id="security-settings" class="settings-content hidden">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-6">Security Settings</h3>
+            
+            <div class="space-y-6">
+                <!-- Change Password -->
+                <div>
+                    <h4 class="text-md font-medium text-gray-900 dark:text-white mb-4">Change Password</h4>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Current Password</label>
+                            <input type="password" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">New Password</label>
+                            <input type="password" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Confirm New Password</label>
+                            <input type="password" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                        </div>
+                        <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
+                            Update Password
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Session Management -->
+                <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
+                    <h4 class="text-md font-medium text-gray-900 dark:text-white mb-4">Session Management</h4>
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-900 dark:text-white">Auto-logout after inactivity</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Automatically sign out after a period of inactivity</p>
+                        </div>
+                        <select class="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                            <option value="30">30 minutes</option>
+                            <option value="60" selected>1 hour</option>
+                            <option value="120">2 hours</option>
+                            <option value="0">Never</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Appearance Settings -->
+    <div id="appearance-settings" class="settings-content hidden">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-6">Appearance Settings</h3>
+            
+            <div class="space-y-6">
+                <!-- Theme Selection -->
+                <div>
+                    <h4 class="text-md font-medium text-gray-900 dark:text-white mb-4">Theme</h4>
+                    <div class="grid grid-cols-3 gap-4">
+                        <label class="relative cursor-pointer">
+                            <input type="radio" name="theme" value="light" class="sr-only">
+                            <div class="theme-option border-2 rounded-lg p-4 text-center transition-colors">
+                                <i data-lucide="sun" class="w-8 h-8 mx-auto mb-2"></i>
+                                <span class="text-sm font-medium">Light</span>
+                            </div>
+                        </label>
+                        <label class="relative cursor-pointer">
+                            <input type="radio" name="theme" value="dark" class="sr-only">
+                            <div class="theme-option border-2 rounded-lg p-4 text-center transition-colors">
+                                <i data-lucide="moon" class="w-8 h-8 mx-auto mb-2"></i>
+                                <span class="text-sm font-medium">Dark</span>
+                            </div>
+                        </label>
+                        <label class="relative cursor-pointer">
+                            <input type="radio" name="theme" value="system" class="sr-only" checked>
+                            <div class="theme-option border-2 rounded-lg p-4 text-center transition-colors border-blue-500 bg-blue-50 dark:bg-blue-900">
+                                <i data-lucide="monitor" class="w-8 h-8 mx-auto mb-2"></i>
+                                <span class="text-sm font-medium">System</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Display Options -->
+                <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
+                    <h4 class="text-md font-medium text-gray-900 dark:text-white mb-4">Display Options</h4>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-gray-900 dark:text-white">Compact mode</p>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">Reduce spacing and padding for more content</p>
+                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" class="sr-only">
+                                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                            </label>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-gray-900 dark:text-white">Show animations</p>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">Enable smooth transitions and animations</p>
+                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" class="sr-only" checked>
+                                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

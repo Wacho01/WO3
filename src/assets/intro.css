@@ -1,0 +1,96 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 200;
+}
+
+
+/* splash*/
+.intro {
+    position:absolute;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 180vh;
+    /*background-color: #161616;*/
+    transition: 2s;
+    background-color: #0abcf9;
+    background-image: linear-gradient(180deg, #2a9cd7 0%, #195d81 74%);
+
+}
+
+.delay-1 {
+  transition-delay: 5s;
+}
+
+.logo-header {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color:#fff;
+}
+
+.logo {
+    position: relative;
+    display: inline-block;
+    bottom: -20px;
+    opacity: 0;
+    font-size:1em;
+    font-weight:200;
+    text-align:center; 
+    width:100%
+    
+}
+
+.logo.active {
+    bottom: 0;
+    opacity: 1;
+    /*transition: eas-in-out 0.5s;*/
+    animation: fadeIn linear 2s;
+  -webkit-animation: fadeIn linear 2s;
+  -moz-animation: fadeIn linear 2s;
+  -o-animation: fadeIn linear 2s;
+  -ms-animation: fadeIn linear 2s;
+    
+    
+}
+
+.logo.fade {
+    bottom:0px;
+    opacity: 0;
+    /*transition: eas-in-out 0.5s;*/
+    transition: visibility 0s 3s, opacity 0.5s linear;
+}
+
+@keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-moz-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-webkit-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-o-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-ms-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+
+
+

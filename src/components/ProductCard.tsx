@@ -20,8 +20,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
   onView
 }) => {
   const handleClick = () => {
-    // Open the specific URL in a new tab
-    window.open('https://zp1v56uxy8rdx5ypatb0ockcb9tr6a-oci3-awhz5fka--5173--96435430.local-credentialless.webcontainer-api.io/', '_blank');
+    // Open the productView index.html in a new tab
+    window.open('/productView/index.html', '_blank');
     
     if (onView) {
       onView();

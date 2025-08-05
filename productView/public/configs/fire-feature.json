@@ -1,0 +1,109 @@
+{
+  "product": {
+    "name": "FIRE DRAGON",
+    "category": "FireForms™",
+    "subcategory": "Flame Thrower",
+    "description": "Interactive fire feature with customizable flame patterns"
+  },
+  "model": {
+    "path": "/models/gltf/DRAGON.glb",
+    "scale": [0.8, 0.8, 0.8],
+    "position": [0, -0.5, 0],
+    "rotation": [0, 3.141592653589793, 0],
+    "initialRotation": {
+      "enabled": true,
+      "steps": 30,
+      "increment": 0.03926990816987241
+    }
+  },
+  "particles": {
+    "enabled": true,
+    "systems": [
+      {
+        "name": "flame1",
+        "type": "fire",
+        "position": [0, 0.8, 0.3],
+        "rate": 800.0,
+        "texture": "/img/fire.png",
+        "maxLife": 1.5,
+        "velocity": [0, 1.2, 0],
+        "color": "#ff4500"
+      }
+    ]
+  },
+  "customization": {
+    "parts": [
+      { "name": "body", "label": "DRAGON BODY", "defaultColor": "#8B0000" },
+      { "name": "base", "label": "BASE", "defaultColor": "#2F4F4F" }
+    ],
+    "colors": [
+      { "name": "Dark Red", "value": "#8B0000", "type": "color" },
+      { "name": "Gold", "value": "#FFD700", "type": "color" },
+      { "name": "Bronze", "value": "#CD7F32", "type": "color" }
+    ]
+  },
+  "specifications": {
+    "dimensions": {
+      "height": "12'-0\" (366 CM)",
+      "width": "6' (183 CM)",
+      "length": "8' (244 CM)"
+    },
+    "technical": [
+      { "label": "Gas Requirements", "value": "Natural Gas or Propane" },
+      { "label": "Category", "value": "Fire Feature" },
+      { "label": "Material", "value": "Steel Construction" }
+    ]
+  },
+  "resources": {
+    "dimensionViews": {
+      "front": "/textures/dragonFront.svg",
+      "top": "/textures/dragonTop.svg",
+      "side": "/textures/dragonSide.svg"
+    },
+    "downloadLinks": [
+      { "label": "Download Specs", "url": "docs/dragon_specs.pdf", "type": "pdf" }
+    ]
+  },
+  "cameras": {
+    "main": {
+      "position": [1.5, 0.2, 6],
+      "lookAt": [0, 0.2, 0],
+      "fov": 35
+    },
+    "overhead": {
+      "position": [10, 2, -5],
+      "lookAt": [0, 0, 0],
+      "fov": 15
+    }
+  },
+  "lighting": {
+    "hemisphere": {
+      "skyColor": "#ffaa44",
+      "groundColor": "#442200",
+      "intensity": 0.8,
+      "position": [0, 3, 2]
+    },
+    "directional": {
+      "color": "#ffaa44",
+      "intensity": 0.6,
+      "position": [1, 2, 1],
+      "castShadow": true
+    }
+  },
+  "environment": {
+    "backgroundColor": "#1a1a2e",
+    "fogColor": "#1a1a2e",
+    "fogNear": 15,
+    "fogFar": 80,
+    "floor": {
+      "enabled": true,
+      "color": "#2F2F2F",
+      "size": 3000
+    },
+    "grid": {
+      "enabled": true,
+      "size": 30,
+      "divisions": 30
+    }
+  }
+}
